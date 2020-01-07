@@ -1,0 +1,2 @@
+λ (z : int)
+  produce 1 + z

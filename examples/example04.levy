@@ -1,0 +1,3 @@
+let x be 0 in
+  print "hello$x";
+  produce 0

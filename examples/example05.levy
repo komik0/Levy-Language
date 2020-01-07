@@ -1,0 +1,5 @@
+7'
+print "hello0";
+λ (x : int)
+print "hello$x";
+produce x
