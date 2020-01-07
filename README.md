@@ -1,3 +1,4 @@
+# Levy Language Interpreter
 Simple typechecker and interpreter for Levy Language.
 This implementation includes (See: tlca99.pdf, Fig. 1. Terms of Basic
 Language, and Big-Step Semantics):
@@ -31,7 +32,7 @@ This implementation can be easily enriched by more constructors e.q:
  - rec
  - tuples, projections, sum of types and so on.
 
-* Compilation
+# Compilation
 
 Using ocamlbuild is recommended. The parser is written using the
 menhir parser generator library. Both packages can be installed using
@@ -44,7 +45,7 @@ This command will produce the executable 'main.native'. Compilation
 was tested on a unix system with OCaml v.4.05.0. It should work on
 other versions and platforms, but mileage may vary.
 
-* Usage
+# Usage
 
 The interpreter is called as follows:
 
