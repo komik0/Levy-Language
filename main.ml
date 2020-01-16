@@ -9,7 +9,7 @@ let parse lexbuf =
 let main fname =
   let inx = open_in fname in
   let lexbuf = Lexing.from_channel inx in
-  lexbuf.lex_curr_p <- { lexbuf.lex_curr_p with pos_fname = fname };
+  lexbuf.Lexing.lex_curr_p <- { lexbuf.Lexing.lex_curr_p with Lexing.pos_fname = fname };
   let e = parse lexbuf in
   close_in inx;
   let t = infer [] e in

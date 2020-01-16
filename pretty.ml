@@ -1,9 +1,12 @@
 open Syntax
 
-let rec prettyT t =
+let rec prettyT (t : gtype) : string =
   match t with
   | TVNum -> "Num"
+  | TVString -> "Str"
   | TVThunk t -> ("U (" ^ (prettyT t) ^ ")")
+  | TVUnit -> "Unit"
+  | TVPair (t, t') -> (prettyT t ^ " × " ^ prettyT t')
   | TCProduce t -> ("F (" ^ (prettyT t) ^ ")")
   | TCArr (t, t') -> ((prettyT t) ^ " -> " ^ (prettyT t'))
 
@@ -11,10 +14,14 @@ let rec prettyE (e : expr) : string =
   match e with
   | EVar x -> x
   | ENum n -> string_of_int n
+  | EString s -> s
   | EPrint (s, m)-> ("print \"" ^ s ^ "\";\n" ^ prettyE m)
   | EPlus (a, b) -> (prettyE a ^ "+" ^ prettyE b)
   | EMinus (a, b) -> (prettyE a ^ "-" ^ prettyE b)
   | ETimes (a, b) -> (prettyE a ^ "*" ^ prettyE b)
+  | EUnit -> "()"
+  | EPair (a, b) -> ("(" ^ prettyE a ^ ", " ^ prettyE b ^ ")")
+  | EPMPair (e, (x, y), m) -> ("pm " ^ prettyE e ^ " as (" ^ x ^ ", " ^ y ^ ") in " ^ prettyE m)
   | EProduce v -> ("produce (" ^ prettyE v ^ ")\n")
   | EThunk m -> ("thunk (" ^ prettyE m ^ ")\n")
   | EForce v -> ("force (" ^ prettyE v ^ ")\n")

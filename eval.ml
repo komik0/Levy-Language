@@ -21,6 +21,8 @@ let rec subst (e : expr) (x : var) (e' : value) : expr =
       if x = y then e'
       else EVar y
   | ENum n -> ENum n
+  | EString s ->
+      EString (replace ("$" ^ x) (Pretty.prettyE e') s)
   | EPrint (s, m) ->
       EPrint (replace ("$" ^ x) (Pretty.prettyE e') s, subst m x e')
   | EPlus (a, b) ->
@@ -29,6 +31,11 @@ let rec subst (e : expr) (x : var) (e' : value) : expr =
       EMinus (subst a x e', subst b x e')
   | ETimes (a, b) ->
       ETimes (subst a x e', subst b x e')
+  | EUnit -> EUnit
+  | EPair (e1, e2) -> EPair (subst e1 x e', subst e2 x e')
+  | EPMPair (e, (x', y), m) ->
+      if x = x' || x = y  then EPMPair (subst e x e', (x', y), m)
+      else EPMPair (subst e x e', (x', y), subst m x e')
   | EProduce v ->
       EProduce (subst v x e')
   | EThunk m ->
@@ -52,6 +59,11 @@ let asEThunk (e : expr) =
   | EThunk m -> m
   | _ -> raise (EvalError ("NotEThunk"))
 
+let asEPair (e : expr) =
+  match e with
+  | EPair (e1, e2) -> (e1, e2)
+  | _ -> raise (EvalError ("NotEPair"))
+
 let asVProduce (v : evalue) : expr =
   match v with
   | VProduce v -> v
@@ -62,16 +74,27 @@ let asVLambda (v : evalue) =
   | VLambda (x, t, m) -> (x, t, m)
   |  _ -> raise (EvalError ("NotVLambda"))
 
+let asInt (v : expr) : int =
+  match v with
+  | ENum n -> n
+  | _ -> raise (EvalError ("NotNum"))
+
 let rec eval (e : expr) : evalue =
   match e with
   | EVar _ -> raise (EvalError ("UnboundVariable"))
   | ENum _ -> raise (EvalError ("NotComputation"))
+  | EString _ -> raise (EvalError ("NotComputation"))
   | EPrint (s, m) ->
      evalPrint s;
      eval m
   | EPlus _ -> raise (EvalError ("NotComputation"))
   | EMinus _ -> raise (EvalError ("NotComputation"))
   | ETimes _ -> raise (EvalError ("NotComputation"))
+  | EUnit -> raise (EvalError ("NotComputation"))
+  | EPair _ -> raise (EvalError ("NotComputation"))
+  | EPMPair (e, (x, y), m) ->
+      let (e1, e2) = asEPair e in
+        eval (subst (subst m x e1) y e2)
   | EProduce v -> VProduce (evalArith v)
   | EThunk _ -> raise (EvalError ("NotComputation"))
   | EForce v ->
@@ -107,9 +130,6 @@ and evalArith (v : expr) : expr =
       let n2 = asInt (evalArith e2) in
       ENum (n1 * n2)
   | EThunk m -> EThunk m
+  | EUnit -> EUnit
+  | EPair (x, y) -> EPair (x, y)
   | _ -> raise (EvalError ("NotArithExpr"))
-
-and asInt (v : expr) : int =
-  match v with
-  | ENum n -> n
-  | _ -> raise (EvalError ("NotNum"))
