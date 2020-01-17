@@ -19,19 +19,26 @@ rule read =
   | "be" {BE}
   | "to" {TO}
   | "in" {IN}
-  | "int"  {INT}
+  | "int"  {TINT}
+  | "str"  {TSTR}
+  | "unit"  {TUNIT}
+  | "pm" {PM}
+  | "as" {AS}
   | "produce" {PRODUCE}
   | "force" {FORCE}
   | "thunk" {THUNK}
   | "print" {PRINT}
   | str {STR (Lexing.lexeme lexbuf)}
   | "'" {PUSH}
+  | "," {COMMA}
   | ":" {COL}
   | ";" {SCOL}
-  | "->" {ARR}
+  | "->" {TARR}
   | "+"  {PLUS}
   | "-"  {MINUS}
   | "*"  {TIMES}
+  | "×" {TPROD}
+  | "()" {UNIT}
   | "(" {LPAR}
   | ")" {RPAR}
   | id {ID (Lexing.lexeme lexbuf)}

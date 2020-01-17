@@ -1,0 +1,3 @@
+pm (1, 2) as (x, y) in
+  print "$y";
+  produce 1

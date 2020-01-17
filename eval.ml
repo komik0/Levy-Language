@@ -131,5 +131,5 @@ and evalArith (v : expr) : expr =
       ENum (n1 * n2)
   | EThunk m -> EThunk m
   | EUnit -> EUnit
-  | EPair (x, y) -> EPair (x, y)
+  | EPair (x, y) -> EPair (evalArith x, evalArith y)
   | _ -> raise (EvalError ("NotArithExpr"))
