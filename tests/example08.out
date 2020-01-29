@@ -1,0 +1,8 @@
+=== TypeCheck  ===
+pm ("Ala", "cat") as (x, y) in print ""$x has $y"";
+produce (23)
+ --: F (Num)
+=== Evaluation ===
+""Ala" has "cat""
+===  ProgRes   ===
+produce 23

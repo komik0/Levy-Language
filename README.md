@@ -10,6 +10,10 @@ Language, and Big-Step Semantics):
  - force V
  - V'M (push value into the stack)
  - Arithmetics expressions
+ - pair
+ - string
+ - pm (v,v) as (x, y) in M
+
 
 As it was noted in 'tlca99.pdf: Remark 1.', A language with
 arithmetics expression is a bit more complicated because
@@ -28,9 +32,9 @@ The version with Arithmetics Expression was chosen because:
 This implementation can be easily enriched by more constructors e.q:
  - if then else
  - case
- - pattern matching (not needed in this project, mentioned in tlca99.pdf)
- - rec
- - tuples, projections, sum of types and so on.
+ - sum of types
+ - pattern matching (generalized - not needed in this project, mentioned in tlca99.pdf)
+ - fix and so on
 
 # Compilation
 
@@ -60,3 +64,6 @@ To make runtime legible, the output of interpreter is divided into three section
 An example showcasing most language constructs can be found in the
 file 'examples/example00.levy'. In 'examples/', you can also find
 another simple programs to verify interpreter.
+
+Additionally, you can run auto-verification by:
+$ ./run_test.sh

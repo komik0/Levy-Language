@@ -1,0 +1,6 @@
+=== TypeCheck  ===
+produce (2+3)
+ --: F (Num)
+=== Evaluation ===
+===  ProgRes   ===
+produce 5

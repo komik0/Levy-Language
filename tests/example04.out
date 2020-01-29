@@ -1,0 +1,9 @@
+=== TypeCheck  ===
+let x be 0 in
+print ""hello$x"";
+produce (0)
+ --: F (Num)
+=== Evaluation ===
+"hello0"
+===  ProgRes   ===
+produce 0

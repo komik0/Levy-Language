@@ -1,0 +1,28 @@
+=== TypeCheck  ===
+print ""hello0"";
+let x be 3 in
+let y be thunk (print ""hello1"";
+λ(z)
+print ""we just popped $z"";
+produce (x+z)
+)
+ in
+print ""hello2"";
+(print ""hello3"";
+7'
+print ""we just pushed 7"";
+force (y)
+) to w in
+print ""w is bound to $w"";
+produce (w+5)
+ --: F (Num)
+=== Evaluation ===
+"hello0"
+"hello2"
+"hello3"
+"we just pushed 7"
+"hello1"
+"we just popped 7"
+"w is bound to 10"
+===  ProgRes   ===
+produce 15

@@ -1,0 +1,10 @@
+=== TypeCheck  ===
+(4, 5)'
+λ(x)
+pm x as (x, y) in print ""x=$x y=$y"";
+produce ((x+y, y))
+ --: F (Num × Num)
+=== Evaluation ===
+"x=4 y=5"
+===  ProgRes   ===
+produce (9, 5)

@@ -1,0 +1,9 @@
+=== TypeCheck  ===
+λ(z)
+produce (1+z)
+ --: Num -> F (Num)
+=== Evaluation ===
+===  ProgRes   ===
+λ(z)
+produce (1+z)
+

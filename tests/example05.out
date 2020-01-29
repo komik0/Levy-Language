@@ -1,0 +1,12 @@
+=== TypeCheck  ===
+7'
+print ""hello0"";
+λ(x)
+print ""hello$x"";
+produce (x)
+ --: F (Num)
+=== Evaluation ===
+"hello0"
+"hello7"
+===  ProgRes   ===
+produce 7
