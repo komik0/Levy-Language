@@ -28,9 +28,15 @@ rule read =
   | "force" {FORCE}
   | "thunk" {THUNK}
   | "print" {PRINT}
+  | "fix" {FIX}
+  | "{" {LBRACE}
+  | "}" {RBRACE}
+  | "F" {TPRODUCE}
+  | "U" {TTHUNK}
   | str {STR (Lexing.lexeme lexbuf)}
   | "'" {PUSH}
   | "," {COMMA}
+  | "." {DOT}
   | ":" {COL}
   | ";" {SCOL}
   | "->" {TARR}

@@ -29,3 +29,4 @@ let rec prettyE (e : expr) : string =
   | EEagerLet (m, x, n) -> ("(" ^ prettyE m ^ ") to " ^ x ^ " in\n" ^ prettyE n)
   | EPush (v, m) -> (prettyE v ^ "'\n" ^ prettyE m)
   | ELambda (x, t, m) -> ("λ(" ^ x ^ ")\n" ^ prettyE m)
+  | EFix (t, x, m) -> ("fix {" ^ prettyT t ^ "} (" ^ x ^ " . " ^ prettyE m)

@@ -2,10 +2,10 @@ print "hello0";
 let x be 3 in
   let y be thunk (
              print "hello1";
-	     λ (z : int)
-	     print "we just popped $z";
-	     produce x + z
-	   ) in
+             λ (z : int)
+             print "we just popped $z";
+             produce x + z
+          ) in
     print "hello2";
     ( print "hello3";
       7'

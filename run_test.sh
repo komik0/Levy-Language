@@ -1,5 +1,5 @@
 #!/bin/bash
-exec 2> /dev/null
+#exec 2> /dev/null
 
 LC=./main.native
 
@@ -21,14 +21,26 @@ echo ------------------
 for f in `ls examples`; do
 	name=${f%%.levy}.out
 	echo -n "testing `tput bold` $f `tput sgr0`... "
-	d=`diff <( $LC examples/$f ) tests/$name`
+	if [ -f "tests/$name" ]; then
+		d=`diff <( $LC examples/$f ) tests/$name`
+	else
+		if [ "`cat tests/.ignore | grep $f | wc -l`" -eq 1 ]; then
+			d="ignored"
+		else
+			d="err"
+		fi
+	fi
 	all=$((all + 1))
 	if [ -z "$d" ]; then
 		ok=$((ok + 1))
 		echo -ne "${GREEN}`tput bold`PASS"
 	else
-		err=$((err + 1))
-		echo -ne "${RED}`tput bold`FAIL"
+		if [ "$d" = "ignored" ]; then
+			echo -ne "`tput bold`SKIP"
+		else
+			err=$((err + 1))
+			echo -ne "${RED}`tput bold`FAIL"
+		fi
 	fi
 	echo -e "${NC}"
 done
@@ -37,7 +49,7 @@ echo ------------------
 if [ $err -eq 0 ]; then
 	echo -e "Your software is ${GREEN}`tput bold`Bug-Free\U2122`tput sgr0`${NC}!"
 else
-	echo -e "Auto-verification ${RED}`tput bold`failed`tput sgr0`${NC} - please correct interpreter!"
+	echo -e "Auto-verification ${RED}`tput bold`failed`tput sgr0`${NC} - please correct interpreter or tests!"
 fi
 
 [ -n "$clean" ] && ocamlbuild -clean > /dev/null

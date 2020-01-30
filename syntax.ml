@@ -30,3 +30,4 @@ and expr =
   | EEagerLet of expr * var * expr      (* M to x in N *)
   | EPush of value * expr               (* Push val into the stack - V'M *)
   | ELambda of var * vtype * expr       (* Pop value - λ(x:vtype) M *)
+  | EFix of ctype * var * expr          (* fix {B} (x.M) *)

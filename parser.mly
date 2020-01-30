@@ -2,8 +2,9 @@
 %token <int> NUM
 %token <string> STR
 %token UNIT
-%token COMMA COL SCOL
+%token COMMA COL SCOL DOT
 %token LAM
+%token FIX
 %token PUSH
 %token LET BE TO IN
 %token PM AS
@@ -19,7 +20,10 @@
 %token TPROD
 %token TSTR
 %token TUNIT
+%token TTHUNK
+%token TPRODUCE
 %token LPAR RPAR
+%token LBRACE RBRACE
 %token EOF
 
 %right TARR
@@ -45,6 +49,7 @@ expr:
   | m = expr; TO; w = ID; IN; n = expr {Syntax.EEagerLet (m, w, n)}
   | v = expr; PUSH; m = expr {Syntax.EPush (v, m)}
   | LAM; LPAR; x = ID; COL; t = typ; RPAR; e = expr  {Syntax.ELambda (x, t, e)}
+  | FIX; LBRACE; t = typ; RBRACE; LPAR; x = ID; DOT; e = expr; RPAR {Syntax.EFix (t, x, e)}
   | PM; e = expr; AS; LPAR; x = ID; COMMA; y = ID; RPAR; IN; m = expr {Syntax.EPMPair (e, (x, y), m)}
   | LPAR; e = expr; RPAR {e}
 
@@ -59,6 +64,8 @@ value:
 
 typ:
   | t1 = typ; TARR;  t2 = typ {Syntax.TCArr (t1, t2)}
+  | TTHUNK; t = typ {Syntax.TVThunk t}
+  | TPRODUCE; t = typ {Syntax.TCProduce t}
   | TINT {Syntax.TVNum}
   | TUNIT {Syntax.TVUnit}
   | TSTR {Syntax.TVString}

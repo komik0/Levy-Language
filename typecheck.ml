@@ -59,13 +59,13 @@ let rec infer (env : env) (e : expr) : gtype =
       let t = infer env e1 in
       let t' = infer env e2 in
         checkVType t ;
-	checkVType t';
-	TVPair (t, t')
+        checkVType t';
+        TVPair (t, t')
   | EPMPair (e, (x, y), m) ->
       let (t, t') = asPair (infer env e) in
         checkVType t ;
-	checkVType t';
-	infer ((x,t) :: (y,t') :: env) m
+        checkVType t';
+        infer ((x,t) :: (y,t') :: env) m
   | EProduce v ->
       let t = infer env v in
         checkVType t ;
@@ -101,6 +101,11 @@ let rec infer (env : env) (e : expr) : gtype =
         checkVType a ;
         checkCType b ;
         TCArr (a, b)
+  | EFix (t, x, m) -> (* fix {B} (x.M) *)
+      let b = infer ((x, (TVThunk t)) :: env) m in
+        checkCType t ;
+        checkCType b ;
+        b
 
 and check (env : env) (e : expr) (t : gtype) =
   let t' = infer env e
