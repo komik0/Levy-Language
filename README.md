@@ -13,6 +13,8 @@ Language, and Big-Step Semantics):
  - pair
  - string
  - pm (v,v) as (x, y) in M
+ - fix {B} (x.e)
+ - wait
 
 
 As it was noted in 'tlca99.pdf: Remark 1.', A language with
@@ -33,8 +35,7 @@ This implementation can be easily enriched by more constructors e.q:
  - if then else
  - case
  - sum of types
- - pattern matching (generalized - not needed in this project, mentioned in tlca99.pdf)
- - fix and so on
+ - pattern matching (generalized - not needed in this project, mentioned in tlca99.pdf) and so on...
 
 # Compilation
 
