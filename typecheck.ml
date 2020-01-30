@@ -106,6 +106,10 @@ let rec infer (env : env) (e : expr) : gtype =
         checkCType t ;
         checkCType b ;
         b
+  | EWait m ->
+      let t = infer env m in
+        checkCType t ;
+        t
 
 and check (env : env) (e : expr) (t : gtype) =
   let t' = infer env e

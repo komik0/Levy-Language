@@ -28,6 +28,7 @@ rule read =
   | "force" {FORCE}
   | "thunk" {THUNK}
   | "print" {PRINT}
+  | "wait" {WAIT}
   | "fix" {FIX}
   | "{" {LBRACE}
   | "}" {RBRACE}

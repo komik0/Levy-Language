@@ -31,3 +31,4 @@ and expr =
   | EPush of value * expr               (* Push val into the stack - V'M *)
   | ELambda of var * vtype * expr       (* Pop value - λ(x:vtype) M *)
   | EFix of ctype * var * expr          (* fix {B} (x.M) *)
+  | EWait of expr                       (* wait ; M *)

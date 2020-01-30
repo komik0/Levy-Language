@@ -30,3 +30,4 @@ let rec prettyE (e : expr) : string =
   | EPush (v, m) -> (prettyE v ^ "'\n" ^ prettyE m)
   | ELambda (x, t, m) -> ("λ(" ^ x ^ ")\n" ^ prettyE m)
   | EFix (t, x, m) -> ("fix {" ^ prettyT t ^ "} (" ^ x ^ " . " ^ prettyE m)
+  | EWait m -> ("wait;\n" ^ prettyE m)

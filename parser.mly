@@ -13,6 +13,7 @@
 %token THUNK
 %token FORCE
 %token PRINT
+%token WAIT
 %token PLUS MINUS TIMES
 
 %token TARR
@@ -42,6 +43,7 @@ expr:
   | e = value {e}
   | UNIT {Syntax.EUnit}
   | PRINT; s = STR; SCOL; e = expr {Syntax.EPrint (s, e)}
+  | WAIT; SCOL; e = expr {Syntax.EWait e}
   | PRODUCE; e = value {Syntax.EProduce e}
   | THUNK; LPAR; e = expr; RPAR {Syntax.EThunk e}
   | FORCE; v = expr {Syntax.EForce(v)}

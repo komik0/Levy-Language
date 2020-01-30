@@ -1,0 +1,8 @@
+1'
+fix {int -> F int} (y .
+  λ (x : int)
+  print "x = $x";
+  wait;
+  (x + 1)'
+  force (y)
+)

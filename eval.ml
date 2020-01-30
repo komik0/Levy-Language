@@ -52,6 +52,8 @@ let rec subst (e : expr) (x : var) (e' : value) : expr =
       ELambda (y, a, substIfNE m x y e')
   | EFix (t, x', m) ->
       EFix (t, x', substIfNE m x x' e')
+  | EWait m ->
+      EWait (subst m x e')
 
 and substIfNE e x y e' =
   if x = y then e else subst e x e'
@@ -114,6 +116,10 @@ let rec eval (e : expr) : evalue =
       VLambda (x, a, m)
   | EFix (t, x, m) ->
       eval (subst m x (EThunk (EFix (t, x, m))))
+  | EWait m ->
+      let _ = read_line () in
+        eval m
+
 
 and evalPrint (s : string) =
   print_string (s ^ "\n")
