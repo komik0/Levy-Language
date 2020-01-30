@@ -66,4 +66,5 @@ file 'examples/example00.levy'. In 'examples/', you can also find
 another simple programs to verify interpreter.
 
 Additionally, you can run auto-verification by:
+
 $ ./run_test.sh
