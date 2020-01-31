@@ -16,19 +16,20 @@ and expr =
   | EVar of var
   | ENum of int
   | EString of string
-  | EPrint of string * expr             (* print "x = $x" ; M *)
+  | EPrint of string * expr               (* print "x = $x" ; M *)
   | EPlus of value * value
   | EMinus of value * value
   | ETimes of value * value
+  | EIfz of expr * expr * var * expr      (* ifz arith-expr then M1 else x.M2 zfi *)
   | EUnit
-  | EPair of value * value              (* (A, A) *)
+  | EPair of value * value                (* (A, A) *)
   | EPMPair of expr * (var * var) * expr  (* pm e as (x, y) in M *)
-  | EProduce of value                   (* produce V *)
-  | EThunk of expr                      (* thunk M *)
-  | EForce of value                     (* force V *)
-  | ELet of var * value * expr          (* let x be V in M *)
-  | EEagerLet of expr * var * expr      (* M to x in N *)
-  | EPush of value * expr               (* Push val into the stack - V'M *)
-  | ELambda of var * vtype * expr       (* Pop value - λ(x:vtype) M *)
-  | EFix of ctype * var * expr          (* fix {B} (x.M) *)
-  | EWait of expr                       (* wait ; M *)
+  | EProduce of value                     (* produce V *)
+  | EThunk of expr                        (* thunk M *)
+  | EForce of value                       (* force V *)
+  | ELet of var * value * expr            (* let x be V in M *)
+  | EEagerLet of expr * var * expr        (* M to x in N *)
+  | EPush of value * expr                 (* Push val into the stack - V'M *)
+  | ELambda of var * vtype * expr         (* Pop value - λ(x:vtype) M *)
+  | EFix of ctype * var * expr            (* fix {B} (x.M) *)
+  | EWait of expr                         (* wait ; M *)

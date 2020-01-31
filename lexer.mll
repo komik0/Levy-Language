@@ -24,6 +24,10 @@ rule read =
   | "unit"  {TUNIT}
   | "pm" {PM}
   | "as" {AS}
+  | "ifz" {IFZ}
+  | "then" {THEN}
+  | "else" {ELSE}
+  | "zfi" {ZFI}
   | "produce" {PRODUCE}
   | "force" {FORCE}
   | "thunk" {THUNK}

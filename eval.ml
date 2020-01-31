@@ -31,10 +31,12 @@ let rec subst (e : expr) (x : var) (e' : value) : expr =
       EMinus (subst a x e', subst b x e')
   | ETimes (a, b) ->
       ETimes (subst a x e', subst b x e')
+  | EIfz (e, m, y, m') ->
+      EIfz (subst e x e', subst m x e', y, substIfNE m' x y e')
   | EUnit -> EUnit
   | EPair (e1, e2) -> EPair (subst e1 x e', subst e2 x e')
   | EPMPair (e, (x', y), m) ->
-      if x = x' || x = y  then EPMPair (subst e x e', (x', y), m)
+      if x = x' || x = y then EPMPair (subst e x e', (x', y), m)
       else EPMPair (subst e x e', (x', y), subst m x e')
   | EProduce v ->
       EProduce (subst v x e')
@@ -94,6 +96,10 @@ let rec eval (e : expr) : evalue =
   | EPlus _ -> raise (EvalError ("NotComputation"))
   | EMinus _ -> raise (EvalError ("NotComputation"))
   | ETimes _ -> raise (EvalError ("NotComputation"))
+  | EIfz (e, m, x, m') ->
+      let v = evalArith e in
+        if v = (ENum 0) then eval m
+        else eval (subst m' x v)
   | EUnit -> raise (EvalError ("NotComputation"))
   | EPair _ -> raise (EvalError ("NotComputation"))
   | EPMPair (e, (x, y), m) ->

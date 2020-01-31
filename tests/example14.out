@@ -1,0 +1,9 @@
+=== TypeCheck  ===
+ifz (23) then
+produce (1)
+else x .
+produce (x)
+zfi --: F (Num)
+=== Evaluation ===
+===  ProgRes   ===
+produce 23

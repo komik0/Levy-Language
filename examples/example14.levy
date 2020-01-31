@@ -1,0 +1,5 @@
+ifz 23 then
+  produce 1
+else
+  x . produce x
+zfi

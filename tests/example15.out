@@ -1,0 +1,22 @@
+=== TypeCheck  ===
+1'
+5'
+fix {Num -> Num -> F (Num)} (fac . λ(n)
+λ(res)
+ifz (n) then
+produce (res)
+else x .
+n*res'
+n-1'
+print ""n = $n, res = $res"";
+force (fac)
+
+zfi --: F (Num)
+=== Evaluation ===
+"n = 5, res = 1"
+"n = 4, res = 5"
+"n = 3, res = 20"
+"n = 2, res = 60"
+"n = 1, res = 120"
+===  ProgRes   ===
+produce 120

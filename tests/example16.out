@@ -1,11 +1,7 @@
 === TypeCheck  ===
-7'
-print ""hello0"";
-λ(x)
-print ""hello$x"";
+let x be 3 in
+let x be 4+x in
 produce (x) --: F (Num)
 === Evaluation ===
-"hello0"
-"hello7"
 ===  ProgRes   ===
 produce 7

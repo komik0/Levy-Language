@@ -1,7 +1,6 @@
 === TypeCheck  ===
 let x be 4+5 in
-produce (x+3)
- --: F (Num)
+produce (x+3) --: F (Num)
 === Evaluation ===
 ===  ProgRes   ===
 produce 12

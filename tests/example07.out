@@ -1,7 +1,6 @@
 === TypeCheck  ===
 pm (2, 3) as (x, y) in print ""$x$ytest"";
-produce (23)
- --: F (Num)
+produce (23) --: F (Num)
 === Evaluation ===
 "23test"
 ===  ProgRes   ===

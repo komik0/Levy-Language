@@ -1,0 +1,5 @@
+ifz (0 + 0) then
+ produce 1
+else
+ x . produce 2
+zfi

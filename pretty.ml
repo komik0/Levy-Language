@@ -19,10 +19,11 @@ let rec prettyE (e : expr) : string =
   | EPlus (a, b) -> (prettyE a ^ "+" ^ prettyE b)
   | EMinus (a, b) -> (prettyE a ^ "-" ^ prettyE b)
   | ETimes (a, b) -> (prettyE a ^ "*" ^ prettyE b)
+  | EIfz (e, m, x, m') -> ("ifz (" ^ prettyE e ^ ") then\n" ^ prettyE m ^ "\nelse " ^ x ^ " .\n" ^ prettyE m' ^ "\nzfi")
   | EUnit -> "()"
   | EPair (a, b) -> ("(" ^ prettyE a ^ ", " ^ prettyE b ^ ")")
   | EPMPair (e, (x, y), m) -> ("pm " ^ prettyE e ^ " as (" ^ x ^ ", " ^ y ^ ") in " ^ prettyE m)
-  | EProduce v -> ("produce (" ^ prettyE v ^ ")\n")
+  | EProduce v -> ("produce (" ^ prettyE v ^ ")")
   | EThunk m -> ("thunk (" ^ prettyE m ^ ")\n")
   | EForce v -> ("force (" ^ prettyE v ^ ")\n")
   | ELet (x, v, m) -> ("let " ^ x ^ " be " ^ prettyE v ^ " in\n" ^ prettyE m)
@@ -30,4 +31,4 @@ let rec prettyE (e : expr) : string =
   | EPush (v, m) -> (prettyE v ^ "'\n" ^ prettyE m)
   | ELambda (x, t, m) -> ("λ(" ^ x ^ ")\n" ^ prettyE m)
   | EFix (t, x, m) -> ("fix {" ^ prettyT t ^ "} (" ^ x ^ " . " ^ prettyE m)
-  | EWait m -> ("wait;\n" ^ prettyE m)
+  | EWait m -> ("wait;" ^ prettyE m)

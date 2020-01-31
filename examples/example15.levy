@@ -1,0 +1,15 @@
+1'
+5'
+fix {int -> int -> F int} ( fac .
+  λ (n : int)
+  λ (res : int)
+  ifz n then
+    produce res
+  else
+    x .
+    (n * res)'
+    (n - 1)'
+    print "n = $n, res = $res";
+    force (fac)
+  zfi
+)

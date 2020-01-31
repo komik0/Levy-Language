@@ -15,6 +15,7 @@
 %token PRINT
 %token WAIT
 %token PLUS MINUS TIMES
+%token IFZ THEN ELSE ZFI
 
 %token TARR
 %token TINT
@@ -53,6 +54,7 @@ expr:
   | LAM; LPAR; x = ID; COL; t = typ; RPAR; e = expr  {Syntax.ELambda (x, t, e)}
   | FIX; LBRACE; t = typ; RBRACE; LPAR; x = ID; DOT; e = expr; RPAR {Syntax.EFix (t, x, e)}
   | PM; e = expr; AS; LPAR; x = ID; COMMA; y = ID; RPAR; IN; m = expr {Syntax.EPMPair (e, (x, y), m)}
+  | IFZ; e = expr; THEN; m1 = expr; ELSE; x = ID; DOT; m2 = expr; ZFI {Syntax.EIfz (e, m1, x, m2)}
   | LPAR; e = expr; RPAR {e}
 
 value:

@@ -14,6 +14,7 @@ Language, and Big-Step Semantics):
  - string
  - pm (v,v) as (x, y) in M
  - fix {B} (x.e)
+ - ifz (e; m; x.m')
  - wait
 
 
@@ -32,10 +33,49 @@ The version with Arithmetics Expression was chosen because:
    CBV function space (outlines in tlca99.pdf, See 'Fig. 3', 'Fig. 4').
 
 This implementation can be easily enriched by more constructors e.q:
- - if then else
+ - bool
  - case
  - sum of types
  - pattern matching (generalized - not needed in this project, mentioned in tlca99.pdf) and so on...
+
+# Why Levy Language?
+It is well-known problem that result of programs computed in CBV and CBN can be different.
+For instance, lets consider a simple language with
+ - lambda,
+ - application,
+ - var, nat, and plus.
+
+and then consider following program:
+
+  ap(lam(x)lam(y) 1 + x + y)(2+3)
+
+In CBV it evaluates to
+
+  lam(y) 1 + 5 + y
+
+Whereas, in CBN it will be
+
+  lam(y) 1 + 2 + 3 + y
+
+In short, (and not exactly) to get rid of above differences P.B. Levy allows programmers
+to chose between CBN and CBV reduction strategy. To do so, he introduced two constructors
+'thunk' for construct value, and 'force' to force compute of value - for example if int were
+a computation type, force(thunk(2+3)) would evaluate to 5, whereas thunk(2+3) would be just thunk(2+3).
+To catch this idea following example outlines translation to CBPV:
+
+  CBV -> CBPV:
+    ap(lam(x)lam(y) 1 + x + y)(force(thunk(2+3))) -> lam(y) 1 + 5 + y
+
+  CBN -> CBPV:
+    ap(lam(x)lam(y) 1 + x + y)(thunk(2+3)) -> lam(y) 1 + thunk(2+3) + y
+
+Of course there are an type and other errors above - it is just outline.
+With above idea - as it is noted in tlca99.pdf - CBPV subsumes both CBN and CBV.
+
+Reader may wonder why it is called CBPV, (why not e.q. CBTF - Call by Thunk Force :)).
+To answer above and another questions please read examples00.levy or/and
+
+  https://www.cs.bham.ac.uk/~pbl/cbpv.html
 
 # Compilation
 
@@ -66,6 +106,13 @@ An example showcasing most language constructs can be found in the
 file 'examples/example00.levy'. In 'examples/', you can also find
 another simple programs to verify interpreter.
 
-Additionally, you can run auto-verification by:
+# Testing
+You can verify interpreter automatically by:
 
 $ ./run_test.sh
+
+It runs some programs in 'examples/' for eq. factorial function.
+Of course, you also can write your own interpreter tests.
+
+If you have any question or tests or so,
+please do not hesitate to contact me.

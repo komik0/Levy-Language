@@ -54,6 +54,13 @@ let rec infer (env : env) (e : expr) : gtype =
       check env e1 TVNum ;
       check env e2 TVNum ;
       TVNum
+  | EIfz (e, m, x, m') ->
+      let t = infer env m in
+      let t'= infer ((x,TVNum) :: env) m' in
+        check env e TVNum;
+        checkTypesEq t t' ;
+        checkCType t ;
+	t
   | EUnit -> TVUnit
   | EPair (e1, e2) ->
       let t = infer env e1 in
@@ -90,7 +97,7 @@ let rec infer (env : env) (e : expr) : gtype =
         infer ((x,tm) :: env) n
   | EPush (v, m) ->  (* V'M *)
       let a = infer env v in
-      let ab = infer env m in (* A -> B *)
+      let ab = infer env m in  (* A -> B *)
         checkVType a ;
         checkVType (asArrDomain ab) ;
         checkCType (asArrRange ab) ;
@@ -101,7 +108,7 @@ let rec infer (env : env) (e : expr) : gtype =
         checkVType a ;
         checkCType b ;
         TCArr (a, b)
-  | EFix (t, x, m) -> (* fix {B} (x.M) *)
+  | EFix (t, x, m) ->  (* fix {B} (x.M) *)
       let b = infer ((x, (TVThunk t)) :: env) m in
         checkCType t ;
         checkCType b ;

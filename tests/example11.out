@@ -3,8 +3,7 @@
 2'
 λ(x)
 λ(y)
-produce (x+y)
- --: F (Num)
+produce (x+y) --: F (Num)
 === Evaluation ===
 ===  ProgRes   ===
 produce 3
