@@ -47,15 +47,15 @@ For instance, lets consider a simple language with
 
 and then consider following program:
 
-  ap(lam(x)lam(y) 1 + x + y)(2+3)
+  ```ap(lam(x)lam(y) 1 + x + y)(2+3)```
 
 In CBV it evaluates to
 
-  lam(y) 1 + 5 + y
+  ```lam(y) 1 + 5 + y```
 
 Whereas, in CBN it will be
 
-  lam(y) 1 + 2 + 3 + y
+  ```lam(y) 1 + 2 + 3 + y```
 
 In short, (and not exactly) to get rid of above differences P.B. Levy allows programmers
 to chose between CBN and CBV reduction strategy. To do so, he introduced two constructors
@@ -64,10 +64,10 @@ a computation type, force(thunk(2+3)) would evaluate to 5, whereas thunk(2+3) wo
 To catch this idea following example outlines translation to CBPV:
 
   CBV -> CBPV:
-    ap(lam(x)lam(y) 1 + x + y)(force(thunk(2+3))) -> lam(y) 1 + 5 + y
+    ```ap(lam(x)lam(y) 1 + x + y)(force(thunk(2+3))) -> lam(y) 1 + 5 + y```
 
   CBN -> CBPV:
-    ap(lam(x)lam(y) 1 + x + y)(thunk(2+3)) -> lam(y) 1 + thunk(2+3) + y
+    ```ap(lam(x)lam(y) 1 + x + y)(thunk(2+3)) -> lam(y) 1 + thunk(2+3) + y```
 
 Of course there are an type and other errors above - it is just outline.
 With above idea - as it is noted in tlca99.pdf - CBPV subsumes both CBN and CBV.
@@ -84,7 +84,7 @@ menhir parser generator library. Both packages can be installed using
 opam, OCaml's package manager. In this case, the project can be built
 with the following invocation:
 
-$ ocamlbuild -use-menhir main.native -pkgs str
+```$ ocamlbuild -use-menhir main.native -pkgs str```
 
 This command will produce the executable 'main.native'. Compilation
 was tested on a unix system with OCaml v.4.05.0. It should work on
@@ -94,7 +94,7 @@ other versions and platforms, but mileage may vary.
 
 The interpreter is called as follows:
 
-$ ./main.native filename
+```$ ./main.native filename```
 
 To make runtime legible, the output of interpreter is divided into three sections:
  - typechecker - the type of the program (computation).
@@ -109,7 +109,7 @@ another simple programs to verify interpreter.
 # Testing
 You can verify interpreter automatically by:
 
-$ ./run_test.sh
+```$ ./run_test.sh```
 
 It runs some programs in 'examples/' for eq. factorial function.
 Of course, you also can write your own interpreter tests.
